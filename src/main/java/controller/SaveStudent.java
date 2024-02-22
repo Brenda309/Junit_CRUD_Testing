@@ -1,6 +1,7 @@
 package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import module.Student;
 import repository.DBConnection;
@@ -61,6 +62,30 @@ if(rowsAffected >= 1){
         }
         return "ERROR";
     }
+
+    public Student retrieveStudent(Student studentObj){
+        Student student = null;
+        try {
+            DBConnection dbConnection = new DBConnection();
+            connection = dbConnection.getConnection(); // Initialize the connection
+            String retrieveStudentQuery = "SELECT * FROM stident WHERE id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(retrieveStudentQuery);
+            preparedStatement.setInt(1,studentObj.getId());
+            ResultSet rs = preparedStatement.executeQuery();
+            int count = 0;
+            while (rs.next()){
+                count++;
+                student.setId(Integer.parseInt(rs.getString(1)));
+                student.setNames(rs.getString(2));
+            }
+            if(count == 0){
+                System.out.println("not found.");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return  student;
+        }
 
     }
 

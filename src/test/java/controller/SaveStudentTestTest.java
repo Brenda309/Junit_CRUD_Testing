@@ -42,4 +42,9 @@ public static void setUpBefore() throws SQLException {
         student.setNames("Brenda");
       dao.saveStudent(student);
     }
+    @Test
+    public  void testUpdateStudents() throws  SQLException {
+
+    }
+
 }
