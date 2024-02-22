@@ -40,6 +40,28 @@ if(rowsAffected >= 1){
             }
         return "ERROR";
     }
+    public String UpdateStudent(Student studentObj) {
+        DBConnection dbConnection = new DBConnection();
+        connection = dbConnection.getConnection(); // Initialize the connection
+
+        String updateStudentQuery = "UPDATE student SET name=? WHERE id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(updateStudentQuery);
+            preparedStatement.setInt(1,studentObj.getId());
+            preparedStatement.setString(2, studentObj.getNames());
+            int rowsAffected= preparedStatement.executeUpdate();
+            connection.close();
+            if(rowsAffected >= 1){
+                return "student saved";
+            }else {
+                return "student not saved";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "ERROR";
+    }
+
     }
 
 
