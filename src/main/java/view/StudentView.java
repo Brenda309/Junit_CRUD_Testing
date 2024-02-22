@@ -29,12 +29,11 @@ public class StudentView {
                 case 1:
                     do {
                         System.out.print("What is the Student id Number? ");
-                        Id = input.nextInt(); // Corrected typo "perseInt()" to "nextInt()"
-
-                        if (String.valueOf(Id).length() == 5) {
+                        Id = input.nextInt();
+                        if (String.valueOf(Id).length() >= 5) {
                             break;
                         } else {
-                            System.out.println("Please enter an ID of 5 digits only.");
+                            System.out.println("Please enter an ID of 5 digits or above.");
                         }
                     } while (true); // Removed unnecessary while loop here
 
@@ -45,8 +44,29 @@ public class StudentView {
                     student.setId(Id);
                     student.setNames(name);
                     String feedback = dao.saveStudent(student);
-                    System.out.println(feedback);
-                    break; // Moved break outside of the while loop
+                    System.out.println(feedback.toString());
+                    break;
+
+                case 2:
+                    do{
+                        System.out.println("Please enter student id:");
+                        Id = input.nextInt();
+                        if (String.valueOf(Id).length() >= 5) {
+                            break;
+                        } else {
+                            System.out.println("Please enter an ID of 5 digits or above.");
+                        }
+
+                    }while(true);
+                    System.out.print("What is new the Student name? ");
+                    input.nextLine(); // Consume the newline character left by nextInt()
+                    name = input.nextLine(); // Corrected to use nextLine() for reading names
+
+                    student.setId(Id);
+                    student.setNames(name);
+                    String feed = dao.UpdateStudent(student);
+                    System.out.println(feed.toString());
+                    break;
             }
         }
     }
