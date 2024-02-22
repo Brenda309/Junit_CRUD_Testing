@@ -63,12 +63,34 @@ if(rowsAffected >= 1){
         return "ERROR";
     }
 
+    public String deleteStudent(Student studentObj) {
+        DBConnection dbConnection = new DBConnection();
+        connection = dbConnection.getConnection(); // Initialize the connection
+
+        String deleteStudentQuery = "DELETE FROM student WHERE id=?";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteStudentQuery);
+            preparedStatement.setInt(1,studentObj.getId());
+            int rowsAffected= preparedStatement.executeUpdate();
+            connection.close();
+            if(rowsAffected >= 1){
+                return "student deleted";
+            }else {
+                return "student not found";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "ERROR";
+    }
+
     public Student retrieveStudent(Student studentObj){
         Student student = null;
         try {
             DBConnection dbConnection = new DBConnection();
             connection = dbConnection.getConnection(); // Initialize the connection
-            String retrieveStudentQuery = "SELECT * FROM stident WHERE id=?";
+            String retrieveStudentQuery = "SELECT * FROM student WHERE id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(retrieveStudentQuery);
             preparedStatement.setInt(1,studentObj.getId());
             ResultSet rs = preparedStatement.executeQuery();

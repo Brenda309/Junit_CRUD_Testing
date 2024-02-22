@@ -67,7 +67,48 @@ public class StudentView {
                     String feed = dao.UpdateStudent(student);
                     System.out.println(feed.toString());
                     break;
+
+                case 3:
+                    do{
+                        System.out.println("Please enter student id to delete:");
+                        Id = input.nextInt();
+                        if (String.valueOf(Id).length() >= 5) {
+                            break;
+                        } else {
+                            System.out.println("Please enter an ID of 5 digits or above.");
+                        }
+                    }while(true);
+                    student.setId(Id);
+                    String res =dao.deleteStudent(student);
+                    System.out.println(res.toString());
+                    break;
+                case 4:
+                        do{
+                            System.out.println("Please enter student id to retrieve:");
+                            Id = input.nextInt();
+                            if (String.valueOf(Id).length() >= 5) {
+                                break;
+                            } else {
+                                System.out.println("Please enter an ID of 5 digits or above.");
+                            }
+                    }while(true);
+                        student.setId(Id);
+                        Student retrieve = dao.retrieveStudent(student);
+                        System.out.println();
+                    System.out.println("student id :"+ retrieve.getId());
+                    System.out.println("student name: " + retrieve.getNames());
+
+                    break;
+                case 0:
+                    System.out.println("thank you for using our system.");
+                    System.exit(0);
+                    break;
+                default:
+                    break;
+
             }
         }
     }
+
+
 }
